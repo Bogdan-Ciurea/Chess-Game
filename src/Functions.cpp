@@ -1,8 +1,9 @@
 #include "../headers/movementHeader.h"
 #include "../headers/mapHeader.h"
-#include <cmath>
 
+#include <cmath>
 #include<iostream>
+#include<vector>
 
 cellCoordinates getCell(){
     int screenWidth = GetScreenWidth();
@@ -40,3 +41,9 @@ cellCoordinates getCell(){
     return cellCoordinates{-1, -1};
 }
 
+bool elementInVector(cellCoordinates elem, std::vector<cellCoordinates> vec){
+    for(int i = 0; i < vec.size(); i++)
+        if(vec[i].i == elem.i && vec[i].j == elem.j)
+            return true;
+    return false;
+}

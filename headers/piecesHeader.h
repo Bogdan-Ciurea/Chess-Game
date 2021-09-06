@@ -20,27 +20,28 @@ protected:
     int teamPiece;
     Image img;
     Texture2D texture; // This will store the Texture2D of the piece
+    char * name;
 public:
+
     Piece();
+    char * pieceName();
     bool teamOfPiece();
     void draw(int x, int y, int size);
     bool move(cellCoordinates fromPosition, cellCoordinates toPosition);
-    vector<cellCoordinates> possibleMoves(cellCoordinates fromPosition);
+    vector<cellCoordinates> possibleMoves(cellCoordinates fromPosition, int ** gameBoardCopy);
     bool validate(cellCoordinates fromPosition, cellCoordinates toPosition);
     ~Piece();
 };
 
 class Pawn : public Piece{
 public:
-
     Pawn(int team);
-    vector<cellCoordinates> possibleMoves(cellCoordinates fromPosition, int gameBoardCopy[8][8]);
+    vector<cellCoordinates> possibleMoves(cellCoordinates fromPosition, int ** gameBoardCopy);
     ~Pawn();
 };
 
 class Bishop : public Piece{
 public:
-    
     Bishop(int team);
     vector<cellCoordinates> possibleMoves(cellCoordinates fromPosition);
     ~Bishop();
@@ -55,7 +56,6 @@ public:
 
 class Rook : public Piece{
 public:
-
     Rook(int team);
     vector<cellCoordinates> possibleMoves(cellCoordinates fromPosition);
     ~Rook();

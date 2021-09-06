@@ -13,7 +13,6 @@ int main(){
     int screenWidth = 800;
     int screenHeight = 800;
     bool isPressed = false;
-    int gameBoardCopy[8][8];
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Chess");
@@ -48,6 +47,7 @@ int main(){
                 gameBoard.removePiece(startCell.i, startCell.j);
                 isPressed = true;
                 
+                gameBoard.getMoves(startCell.i, startCell.j);
             }
         }
 
@@ -59,8 +59,16 @@ int main(){
 
         if(IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && isPressed){
             finalCell = getCell();
-            gameBoard.addPiece(finalCell.i, finalCell.j);
-            isPressed = false;
+            if(elementInVector(finalCell, gameBoard.possibleMoves)){
+                gameBoard.addPiece(finalCell.i, finalCell.j);
+                isPressed = false;
+                gameBoard.possibleMoves.clear();
+            }
+            else{
+                gameBoard.addPiece(startCell.i, startCell.j);
+                isPressed = false;
+                gameBoard.possibleMoves.clear();
+            }
         }
 
         //TODO: Daca apas pe o patratica goala, apare o piesa

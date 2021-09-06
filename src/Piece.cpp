@@ -24,6 +24,15 @@ void Piece::draw(int x, int y, int size){
     DrawTextureEx(texture, Vector2{float(x),float(y)}, 0, float(size) / 500, WHITE);
 }
 
+char * Piece::pieceName(){
+    return this->name;
+}
+
+vector<cellCoordinates>Piece::possibleMoves(cellCoordinates fromPosition, int ** gameBoardCopy){
+    vector<cellCoordinates> list;
+    return list;
+}
+
 bool Piece::teamOfPiece(){
     return this->teamPiece;
 }
@@ -35,6 +44,7 @@ Piece::~Piece(){
 
 Pawn::Pawn(int team){
     teamPiece = team;
+    name = "Pawn";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
         this->img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-pawn-white.png");
@@ -45,7 +55,7 @@ Pawn::Pawn(int team){
     UnloadImage(this->img);  
 }
 
-vector<cellCoordinates>Pawn::possibleMoves(cellCoordinates fromPosition, int gameBoardCopy[8][8]){
+vector<cellCoordinates>Pawn::possibleMoves(cellCoordinates fromPosition, int ** gameBoardCopy){
     vector<cellCoordinates> list;
     
     //Move the white pawns
@@ -103,6 +113,7 @@ Pawn::~Pawn(){
 
 Bishop::Bishop(int team){
     teamPiece = team;
+    name = "Bishop";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
         img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-bishop-white.png");
@@ -119,6 +130,7 @@ Bishop::~Bishop(){
 
 Knight::Knight(int team){
     teamPiece = team;
+    name = "Knight";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
         img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-knight-white.png");
@@ -135,6 +147,7 @@ Knight::~Knight(){
 
 Rook::Rook(int team){
     teamPiece = team;
+    name = "Rook";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
         img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-rook-white.png");
@@ -151,6 +164,7 @@ Rook::~Rook(){
 
 Queen::Queen(int team){
     teamPiece = team;
+    name = "Queen";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
         img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-queen-white.png");
@@ -167,6 +181,7 @@ Queen::~Queen(){
 
 King::King(int team){
     teamPiece = team;
+    name = "King";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
         img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-king-white.png");

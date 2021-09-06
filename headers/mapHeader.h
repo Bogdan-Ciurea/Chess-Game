@@ -5,6 +5,7 @@
 #include "piecesHeader.h" 
 #include <vector>
 
+
 class Cell{
 public:
     int startX, startY, size;
@@ -33,22 +34,36 @@ private:
 
     Color darkCell;
     Color whiteCell;
+    Color moveCell;
+    
+    void showMapCLI(); 
+
+    std::vector<cellCoordinates> pownMoves(int i, int j);
+    std::vector<cellCoordinates> bishopMoves(int i, int j);
+    std::vector<cellCoordinates> knightMoves(int i, int j);
+    std::vector<cellCoordinates> rookMoves(int i, int j);
+    std::vector<cellCoordinates> queenMoves(int i, int j);
+    std::vector<cellCoordinates> kingMoves(int i, int j);
 
 public:
     Cell board[8][8];
     Piece tempPiece;
+    std::vector<cellCoordinates> possibleMoves;
 
     ChessBoard();
+    ~ChessBoard();
+
+    void drawBoard();
     void putPieces();
+    void resetBoard();
+
     void addPiece(int i, int j);
     void removePiece(int i, int j);
+
+    void getMoves(int i, int j);
     int stateOfCell(int i, int j);
-    void drawBoard();
-    int **convertBoard();
+
     int getCellSize();
-    void resetBoard();
-    void updateBoard(Move move);
-    ~ChessBoard();
 };
 
 class Chess{
