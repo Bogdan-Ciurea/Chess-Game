@@ -1,5 +1,5 @@
-#include <../headers/piecesHeader.h>
-#include <../headers/mapHeader.h>
+#include "../headers/piecesHeader.h"
+#include "../headers/mapHeader.h"
 
 using namespace std;
 #include <iostream>
@@ -47,9 +47,9 @@ Pawn::Pawn(int team){
     name = "Pawn";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
-        this->img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-pawn-white.png");
+        this->img = LoadImage("assets/chess-pawn-white.png");
     else
-        this->img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-pawn-black.png");
+        this->img = LoadImage("assets/chess-pawn-black.png");
     
     this->texture = LoadTextureFromImage(this->img);
     UnloadImage(this->img);  
@@ -116,9 +116,9 @@ Bishop::Bishop(int team){
     name = "Bishop";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-bishop-white.png");
+        img = LoadImage("assets/chess-bishop-white.png");
     else
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-bishop-black.png");
+        img = LoadImage("assets/chess-bishop-black.png");
 
     texture = LoadTextureFromImage(img);
     UnloadImage(img);  
@@ -133,9 +133,9 @@ Knight::Knight(int team){
     name = "Knight";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-knight-white.png");
+        img = LoadImage("assets/chess-knight-white.png");
     else
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-knight-black.png");
+        img = LoadImage("assets/chess-knight-black.png");
 
     texture = LoadTextureFromImage(img);
     UnloadImage(img);  
@@ -150,9 +150,9 @@ Rook::Rook(int team){
     name = "Rook";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-rook-white.png");
+        img = LoadImage("assets/chess-rook-white.png");
     else
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-rook-black.png");
+        img = LoadImage("assets/chess-rook-black.png");
 
     texture = LoadTextureFromImage(img);
     UnloadImage(img);  
@@ -167,9 +167,9 @@ Queen::Queen(int team){
     name = "Queen";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-queen-white.png");
+        img = LoadImage("assets/chess-queen-white.png");
     else
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-queen-black.png");
+        img = LoadImage("assets/chess-queen-black.png");
 
     texture = LoadTextureFromImage(img);
     UnloadImage(img);  
@@ -184,9 +184,9 @@ King::King(int team){
     name = "King";
     
     if(team) // Whites coresponds to 1 and Blacks coresponds to 0
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-king-white.png");
+        img = LoadImage("assets/chess-king-white.png");
     else
-        img = LoadImage("C:/Users/ciure/Desktop/Things/C++/Game/assets/chess-king-black.png");
+        img = LoadImage("assets/chess-king-black.png");
 
     texture = LoadTextureFromImage(img);
     UnloadImage(img);  
