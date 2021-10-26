@@ -1,30 +1,25 @@
 #include "../include/raylib.h"
-#include "../headers/mapHeader.h"
-#include "../headers/movementHeader.h"
-#include "../headers/piecesHeader.h"
-
-#include <iostream>
-#include <cstring>
+#include "../include/chess_board.h"
 
 using namespace std;
-
 
 int main(){
     // Initialization
     //--------------------------------------------------------------------------------------
-    int screenWidth = 800;
-    int screenHeight = 800;
-    bool isPressed = false;
-    bool currentPlayer = true;
-    bool onGoingGame = true;
+    int  screen_width  = 800;
+    int  screen_height = 800;
+    bool is_pressed    = false;
+    bool on_going_game = true;
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidth, screenHeight, "Chess");
+    InitWindow(screen_width, screen_height, "Chess");
 
-    ChessBoard gameBoard = ChessBoard();
-    cellCoordinates startCell, finalCell;
+    cell_state_enum  current_player = WHITES;
+    Chess_board      game_board = Chess_board();
+    cell_coordinates start_cell = {0}; 
+    cell_coordinates final_cell = {0};
 
-    Vector2 currentMouseCoord;
+    Vector2 current_mouse_coords;
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -43,76 +38,82 @@ int main(){
         BeginDrawing();
         
 
-        if(onGoingGame){
+        if (on_going_game) {
 
             ClearBackground(RAYWHITE);
-            gameBoard.drawBoard(); // Draw the board
+            game_board.draw_board(); // Draw the board
 
             // Pick up piece
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-                startCell = getCell();
-                if(gameBoard.stateOfCell(startCell.i, startCell.j) == currentPlayer){
-                    if(gameBoard.board[(startCell.i)][(startCell.j)].hasPiece){
-                        gameBoard.removePiece(startCell.i, startCell.j);
-                        isPressed = true;
-                        
-                        gameBoard.getMoves(startCell.i, startCell.j);
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                start_cell = get_cell();
+                if (game_board.state_of_cell(start_cell.i, start_cell.j) == current_player) {
+                    if (game_board.board[(start_cell.i)][(start_cell.j)].has_piece) {
+                        game_board.remove_piece(start_cell.i, start_cell.j);
+                        is_pressed = true;
+                        game_board.get_moves(start_cell.i, start_cell.j);
                     }
                 }
             }
 
             // Hold piece
-            if(isPressed){
-                currentMouseCoord = GetMousePosition();
-                gameBoard.tempPiece.draw(int(currentMouseCoord.x) - gameBoard.getCellSize() / 2, 
-                    int(currentMouseCoord.y) - gameBoard.getCellSize() / 2, gameBoard.getCellSize());
+            if (is_pressed) {
+                current_mouse_coords = GetMousePosition();
+                game_board.temp_piece.draw(int(current_mouse_coords.x) - game_board.get_cell_size() / 2,
+                                           int(current_mouse_coords.y) - game_board.get_cell_size() / 2,
+                                           game_board.get_cell_size());
             }
 
 
             // Drop piece
-            if(IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && isPressed){
-                finalCell = getCell();
-                if(elementInVector(finalCell, gameBoard.possibleMoves)){
-                    if(gameBoard.stateOfCell(finalCell.i, finalCell.j) != currentPlayer && gameBoard.stateOfCell(finalCell.i, finalCell.j) != -1){
+            if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && is_pressed) {
+                final_cell = get_cell();
+                if (element_in_vector(final_cell, game_board.possible_moves)) {
+                    if (game_board.state_of_cell(final_cell.i, final_cell.j) != current_player
+                       && game_board.state_of_cell(final_cell.i, final_cell.j) != NO_PIECE) {
                         // Play soud killPiece
-                        if(!strcmp(gameBoard.board[finalCell.i][finalCell.j].piece.pieceName(), "King")){
-                            onGoingGame = false;
+                        if (game_board.board[final_cell.i][final_cell.j].piece.get_piece_type() == KING) {
+                            on_going_game = false;
                         }
                     }
-                    else{
+                    else {
                         // Play sound movePiece
                     }
-                    gameBoard.addPiece(finalCell.i, finalCell.j);
-                    isPressed = false;
-                    gameBoard.possibleMoves.clear();
-                    currentPlayer = !currentPlayer;
+                    game_board.add_piece(final_cell.i, final_cell.j);
+                    is_pressed = false;
+                    game_board.possible_moves.clear();
+                    if (current_player == WHITES) {
+                        current_player = BLACKS;
+                    }
+                    else {
+                        current_player = WHITES;
+                    }
                 }
-                else{
-                    gameBoard.addPiece(startCell.i, startCell.j);
-                    isPressed = false;
-                    gameBoard.possibleMoves.clear();
+                else {
+                    game_board.add_piece(start_cell.i, start_cell.j);
+                    is_pressed = false;
+                    game_board.possible_moves.clear();
                 }
             }
         
 
-            if(!onGoingGame){
+            if (!on_going_game) {
                 ClearBackground(RAYWHITE);
-                gameBoard.drawBoard();
+                game_board.draw_board();
             } 
 
         }
-        else{
-            if(!currentPlayer){
+        else {
+            if (!current_player) {
                 //ClearBackground(RAYWHITE);
-                gameBoard.drawBoard();
-                DrawText("White has won!", 200, screenHeight / 2, 50 ,WHITE);
+                game_board.draw_board();
+                DrawText("White has won!", 200, screen_height / 2, 50 ,WHITE);
                 EndDrawing();
-                continue;
+                break;
             }
-            else{
+            else {
                 //ClearBackground(RAYWHITE);
-                gameBoard.drawBoard();
-                DrawText("Black has won!", 200, screenHeight / 2, 50 ,WHITE);
+                game_board.draw_board();
+                DrawText("Black has won!", 200, screen_height / 2, 50 ,WHITE);
                 EndDrawing();
                 break;
             }
@@ -121,11 +122,6 @@ int main(){
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
-
-    while (!WindowShouldClose()){   // Detect window close button or ESC key
-    
-    }
-
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
