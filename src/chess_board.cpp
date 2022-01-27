@@ -176,7 +176,20 @@ void Chess_board::reset_board() {
  * @param[in] i will be the location on the y axes
  * @param[in] j will be the location on the x axes
  */
-void Chess_board::add_piece(int i, int j){
+void Chess_board::add_piece(int i, int j) {
+    // Change the Pawn into a Queen when reach the other side of the board
+    if (i == 0 && temp_piece.team_of_piece() == WHITES 
+        && temp_piece.get_piece_type() == PAWN) {
+        temp_piece.~Piece();
+        temp_piece = Queen(WHITES);
+    }
+    else if (i == 7 && temp_piece.team_of_piece() == BLACKS 
+        && temp_piece.get_piece_type() == PAWN) {
+        temp_piece.~Piece();
+        temp_piece = Queen(BLACKS);
+    }
+    
+    // Insert the new piese on the cell we want to move out piece to
     board[i][j].piece = temp_piece;
     board[i][j].has_piece = true;
     temp_piece.~Piece();
@@ -292,6 +305,10 @@ std::vector<cell_coordinates> Chess_board::pown_moves(int i, int j){
             list.push_back(cell_coordinates{i - 1, j + 1});
 
         // TODO: Make the en percent move
+        if (i < 3 && j < 7 && state_of_cell(i + 1, j + 1) == BLACKS)
+            list.push_back(cell_coordinates{i - 1, j + 1});
+        if (i < 3 && j > 0 && state_of_cell(i + 1, j - 1) == BLACKS)
+            list.push_back(cell_coordinates{i - 1, j - 1});
     }
     // Move the black pawns
     else {
@@ -315,6 +332,10 @@ std::vector<cell_coordinates> Chess_board::pown_moves(int i, int j){
             list.push_back(cell_coordinates{i + 1, j + 1});
 
         // TODO: Make the en percent move
+        if (i > 4 && j > 0 && state_of_cell(i - 1, j - 1) == WHITES)
+            list.push_back(cell_coordinates{i - 1, j - 1});
+        if (i > 4 && j < 7 && state_of_cell(i - 1, j + 1) == WHITES)
+            list.push_back(cell_coordinates{i - 1, j + 1});
     }
 
     return list;
