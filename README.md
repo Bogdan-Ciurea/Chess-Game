@@ -5,8 +5,6 @@
 
 **This software was made by Bogdan Alexandru Ciurea**
 
-**Student Name: Bogdan Alexandru Ciurea**
-
 **Email: ciureabogdanalexandru@yahoo.com**
 
 This is a **personal project** that was the purpose of showing my skills in writing object-oriented code in C++ but also to show my interest in graphical applications.
