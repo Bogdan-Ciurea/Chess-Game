@@ -1,4 +1,4 @@
-#include "../include/raylib.h"
+#include "raylib.h"
 #include "../include/pieces.h"
 
 using namespace std;

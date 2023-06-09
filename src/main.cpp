@@ -1,4 +1,4 @@
-#include "../include/raylib.h"
+#include "raylib.h"
 #include "../include/chess_board.h"
 
 using namespace std;
